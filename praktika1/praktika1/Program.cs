@@ -1,55 +1,66 @@
 ﻿using System;
 
-namespace SeriesSumAboba
+namespace Aaaaa
 {
+    class Triangle
+    {
+        // Стороны треугольника
+        private double biba;
+        private double boba;
+        private double aboba;
+
+        // Конструктор с параметрами (единственный способ создать треугольник)
+        public Triangle(double biba, double boba, double aboba)
+        {
+            this.biba = biba;
+            this.boba = boba;
+            this.aboba = aboba;
+        }
+
+        // Расчет периметра
+        public double CalculatePerimeter()
+        {
+            return biba + boba + aboba;
+        }
+
+        // Вывод длин сторон
+        public void PrintSides()
+        {
+            Console.WriteLine($"Длины сторон: biba = {biba}, boba = {boba}, aboba = {aboba}");
+        }
+
+        // Вывод периметра
+        public void PrintPerimeter()
+        {
+            Console.WriteLine($"Периметр треугольника: {CalculatePerimeter()}");
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            //Ввод значения ε
-            Console.Write("Введите значение ε (aboba) (например, 0.0001): ");
-            string aboba_input = Console.ReadLine();
+            Console.WriteLine("=== Ввод сторон треугольника ===");
 
-            // Проверка корректности ввода
-            if (!double.TryParse(aboba_input, out double aboba) || aboba <= 0)
-            {
-                Console.WriteLine("Ошибка: aboba должно быть положительным числом.");
-                return;
-            }
+            // Запрашиваем первую сторону
+            Console.Write("Введите сторону biba: ");
+            double biba = double.Parse(Console.ReadLine());
 
-            //biba - сумма, boba - счетчик n
-            double biba = 0.0;
-            int boba = 1;
+            // Запрашиваем вторую сторону
+            Console.Write("Введите сторону boba: ");
+            double boba = double.Parse(Console.ReadLine());
 
-            //Основной цикл
-            while (true)
-            {
-                //Вычисляем модуль текущего члена ряда: |a_n| = 1 / n^n
-                double abibas = 1.0 / Math.Pow(boba, boba);
+            // Запрашиваем третью сторону
+            Console.Write("Введите сторону aboba: ");
+            double aboba = double.Parse(Console.ReadLine());
 
-                //Если модуль члена меньше aboba, прекращаем цикл
-                if (abibas < aboba)
-                {
-                    break;
-                }
+            // Создаем объект с введенными значениями
+            Triangle triangle = new Triangle(biba, boba, aboba);
 
-                //Вычисляем знак: bibas
-                double bibas = (boba % 2 != 0) ? 1.0 : -1.0;
+            Console.WriteLine("\n--- Результаты ---");
+            triangle.PrintSides();
+            triangle.PrintPerimeter();
 
-                //Вычисляем сам член ряда: bobas
-                double bobas = bibas * abibas;
-
-                //Добавляем к сумме (biba) и увеличиваем счетчик (boba)
-                biba += bobas;
-                boba++;
-            }
-
-            //Вывод результата
-            Console.WriteLine($"\nСумма членов ряда, модуль которых >= {aboba}:");
-            Console.WriteLine($"Сумма (biba) = {biba}");
-            Console.WriteLine($"Количество учтенных членов ряда: {boba - 1}");
-
-            Console.WriteLine("\nНажмите любую клавишу для выхода...");
             Console.ReadKey();
         }
     }
